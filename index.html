@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>dekmeesheet · ชีทสรุปเด็กมอนอ</title>
+<meta name="description" content="ชีทสรุปกลางภาค–ปลายภาค มน. สั่งบนเว็บ ได้ไฟล์ทันที">
+<meta property="og:title" content="dekmeesheet · ชีทสรุปเด็กมอนอ">
+<meta property="og:description" content="สั่งบนเว็บ ได้ไฟล์ทันที ไม่ต้องรอแอดมินตอบแชท">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Mitr:wght@500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://lh3.googleusercontent.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<style>
+  :root{--bg:#fdf8f1;--card:#fff;--ink:#1d1f24;--muted:#6b6f78;--line:#ece4d8;--brand:#e0569a;--brand-soft:#fde2ee;--ok:#16a34a;--ok-soft:#dcfce7;--warn:#a16207;--warn-soft:#fef3c7;--pp:#113566;--orange:#f08a34;--r:16px}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Thai",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:560px;margin:0 auto;padding:20px 16px 120px}
+  header{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .brand{display:flex;align-items:center;gap:12px;min-width:0}
+  .brand .logo{width:62px;height:62px;flex:none;filter:drop-shadow(0 4px 10px rgba(224,86,154,.18))}
+  .brand .logo svg{width:100%;height:100%;display:block}
+  header h1{font-family:"Mitr","IBM Plex Sans Thai",sans-serif;color:#3b2a20;font-size:25px;margin:0;font-weight:600;letter-spacing:.2px;line-height:1.1}
+  header h1 em{font-style:normal;color:var(--orange)}
+  header p{margin:3px 0 0;color:var(--muted);font-size:13.5px}
+  .hero{margin-top:16px;background:linear-gradient(135deg,#ffe8d2 0%,#fde2ee 100%);border-radius:20px;padding:16px;position:relative;overflow:hidden}
+  .hero:after{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.35)}
+  .hero h2{font-family:"Mitr",sans-serif;font-weight:500;font-size:19px;margin:0 0 10px;color:#3b2a20;position:relative}
+  .trust{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;position:relative}
+  .trust div{background:rgba(255,255,255,.75);border-radius:12px;padding:9px 6px;text-align:center;font-size:12px;line-height:1.35;color:#3b2a20}
+  .trust b{display:block;font-size:18px;margin-bottom:2px}
+  .howto{background:#fff;border:1px solid var(--line);border-radius:var(--r);margin-top:12px;overflow:hidden}
+  .howto summary{list-style:none;cursor:pointer;padding:14px 16px;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+  .howto summary::-webkit-details-marker{display:none}
+  .howto summary:after{content:"＋";color:var(--brand);font-weight:700}
+  .howto[open] summary:after{content:"－"}
+  .howto ol{list-style:none;margin:0;padding:0 16px 8px;counter-reset:s}
+  .howto li{counter-increment:s;display:flex;gap:12px;padding:10px 0;border-top:1px dashed var(--line);font-size:14px;line-height:1.55}
+  .howto li:before{content:counter(s);flex:none;width:26px;height:26px;border-radius:50%;background:var(--orange);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:13px}
+  .howto li b{display:block;font-size:14.5px}
+  .howto .tip{margin:0 16px 14px;background:var(--warn-soft);color:#7c4a03;border-radius:10px;padding:9px 12px;font-size:13px;line-height:1.55}
+  .sect{font-family:"Mitr",sans-serif;font-weight:500;font-size:18px;margin:20px 0 4px}
+  footer{margin-top:28px;text-align:center;color:var(--muted);font-size:13px;line-height:1.8}
+  footer a{color:var(--brand);font-weight:600;text-decoration:none}
+  .bank{display:flex;gap:12px;align-items:center}
+  .bank .ic{width:44px;height:44px;border-radius:12px;background:#138f2d;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:13px;flex:none}
+  .acc{font-family:ui-monospace,Menlo,monospace;font-size:21px;font-weight:700;letter-spacing:.5px}
+  .bigamt{background:var(--brand-soft);border-radius:12px;padding:12px;text-align:center;margin-top:12px}
+  .bigamt b{display:block;font-size:28px;color:#9d174d}
+  .link{background:none;border:0;color:var(--brand);font:inherit;font-size:14px;font-weight:600;cursor:pointer;padding:6px 0;white-space:nowrap}
+  .steps{display:flex;gap:6px;margin:18px 0 14px}
+  .steps span{flex:1;height:4px;border-radius:4px;background:var(--line)}
+  .steps span.on{background:var(--brand)}
+  .search,input[type=text],input[type=email]{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font:inherit;font-size:16px;background:#fff}
+  input:focus{outline:2px solid var(--brand);outline-offset:-1px;border-color:transparent}
+  .chips{display:flex;gap:8px;overflow-x:auto;padding:12px 0 4px}
+  .chip{flex:none;border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;font:inherit;font-size:14px;cursor:pointer}
+  .chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .list{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+  @media(min-width:520px){.list{grid-template-columns:1fr 1fr 1fr}}
+  .item{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}
+  .item.in{border-color:var(--brand);box-shadow:0 0 0 2px var(--brand-soft)}
+  .thumb{aspect-ratio:1/1;background:#f3eee6 center/cover no-repeat;cursor:zoom-in;position:relative;border:0;padding:0;width:100%;display:block}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .thumb .spin{position:absolute;left:50%;top:50%;margin:-11px 0 0 -11px}
+  .thumb .zoom{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.55);color:#fff;font-size:12px;padding:3px 8px;border-radius:999px}
+  .thumb.noimg{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;cursor:default}
+  .item .info{padding:10px 12px 12px;display:flex;flex-direction:column;gap:4px;flex:1}
+  .item h3{margin:0;font-size:14.5px;font-weight:600;line-height:1.35}
+  .item .meta{font-size:12.5px;color:var(--muted)}
+  .item .foot{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:auto;padding-top:6px}
+  .price{font-weight:700;font-size:17px;white-space:nowrap}
+  .add{border:1.5px solid var(--brand);color:var(--brand);background:#fff;border-radius:10px;padding:6px 10px;font:inherit;font-weight:600;font-size:13.5px;cursor:pointer}
+  .add.in{background:var(--brand);color:#fff}
+  .lb{position:fixed;inset:0;background:rgba(15,15,20,.92);z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px}
+  .lb img{max-width:100%;max-height:78vh;border-radius:12px;background:#fff}
+  .lb .cap{color:#fff;margin:12px 0 8px;text-align:center;font-size:15px}
+  .lb .row2{display:flex;gap:10px}
+  .lb .x{position:absolute;top:12px;right:14px;background:none;border:0;color:#fff;font-size:30px;cursor:pointer;line-height:1}
+  .muted{color:var(--muted)}
+  .center{text-align:center;padding:30px 0}
+  .bar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
+  .bar .in{max-width:560px;margin:0 auto;display:flex;gap:12px;align-items:center}
+  .bar .sum{flex:1;font-size:14px;color:var(--muted)}
+  .bar .sum b{display:block;color:var(--ink);font-size:18px}
+  .btn{border:0;background:linear-gradient(135deg,#ec6aa8,#e0569a);box-shadow:0 4px 12px rgba(224,86,154,.25);color:#fff;border-radius:12px;padding:14px 18px;font:inherit;font-weight:600;font-size:16px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
+  .btn:disabled{background:#d6d3d1;box-shadow:none;cursor:default}
+  .btn.ghost{box-shadow:none;background:#fff;color:var(--ink);border:1px solid var(--line)}
+  .btn.block{width:100%}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-top:12px}
+  .card h2{font-size:17px;margin:0 0 10px}
+  label{display:block;font-size:14px;font-weight:500;margin:12px 0 6px}
+  label small{color:var(--muted);font-weight:400}
+  .err{color:#c2410c;font-size:14px;margin-top:8px;min-height:1em}
+  .row{display:flex;justify-content:space-between;gap:12px;padding:7px 0;font-size:15px}
+  .row + .row{border-top:1px dashed var(--line)}
+  .row.total{font-weight:700;font-size:17px;border-top:1px solid var(--ink)!important;margin-top:4px;padding-top:10px}
+  .qr{padding:0;overflow:hidden;text-align:center}
+  .qr .hd{background:var(--pp);color:#fff;font-weight:600;padding:10px;font-size:15px}
+  .qr svg{width:230px;height:230px;display:block;margin:14px auto 6px}
+  .qr .hd{background:linear-gradient(135deg,#113566,#1d4f8f)}
+  .qr .amt{font-size:26px;font-weight:700}
+  .qr .to{color:var(--muted);font-size:14px;padding:4px 12px 16px}
+  .copy{border:1px solid var(--line);background:#fff;border-radius:8px;padding:4px 10px;font:inherit;font-size:13px;cursor:pointer;margin-left:6px}
+  .drop{display:block;border:2px dashed var(--line);border-radius:14px;padding:18px;text-align:center;cursor:pointer;color:var(--muted);font-size:15px;margin-top:4px}
+  .drop.has{border-color:var(--ok);color:var(--ink);background:#f6fef8}
+  .drop img{max-width:100%;max-height:260px;border-radius:10px;display:block;margin:0 auto 8px}
+  .oid{font-family:ui-monospace,Menlo,monospace;background:var(--brand-soft);color:#9d174d;padding:3px 9px;border-radius:6px;font-weight:600;font-size:16px}
+  .pill{display:inline-block;padding:4px 12px;border-radius:999px;font-weight:600;font-size:14px}
+  .pill.wait{background:var(--warn-soft);color:var(--warn)}
+  .pill.paid{background:var(--ok-soft);color:var(--ok)}
+  .pill.cancel{background:#e5e7eb;color:#4b5563}
+  .dl{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0}
+  .dl + .dl{border-top:1px dashed var(--line)}
+  .dl .btn{padding:9px 14px;font-size:14px}
+  .note{font-size:13px;color:var(--muted);margin-top:10px;line-height:1.65}
+  .back{background:none;border:0;color:var(--muted);font:inherit;font-size:14px;padding:6px 0;cursor:pointer}
+  .spin{width:22px;height:22px;border:3px solid var(--brand-soft);border-top-color:var(--brand);border-radius:50%;animation:s 0.8s linear infinite;display:inline-block;vertical-align:middle}
+  @keyframes s{to{transform:rotate(360deg)}}
+  .toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:9px 16px;border-radius:999px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:9}
+  .toast.on{opacity:1}
+  .stars{color:#f5a623;letter-spacing:1px;white-space:nowrap}
+  .stars .off{color:#e5ded3}
+  .sold{font-size:12.5px;color:#c2410c;font-weight:600}
+  .soldTotal{position:relative;margin:-2px 0 12px;display:inline-block;background:#fff;border-radius:999px;padding:4px 14px;font-size:14px;font-weight:600;color:#c2410c}
+  .rate{font-size:12.5px;color:var(--muted);display:flex;gap:4px;align-items:center}
+  .revsum{display:flex;align-items:center;gap:14px}
+  .revsum .big{font-family:"Mitr",sans-serif;font-size:40px;font-weight:600;line-height:1;color:#3b2a20}
+  .rv{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:10px}
+  .rv .top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px}
+  .rv .who{font-weight:600;font-size:14px}
+  .rv .badge{font-size:11px;background:var(--ok-soft);color:var(--ok);border-radius:999px;padding:2px 8px;margin-left:6px;font-weight:600}
+  .rv .prod{font-size:12.5px;color:var(--brand);margin-top:3px}
+  .rv p{margin:6px 0 0;font-size:14px;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+  .rv .d{color:var(--muted);font-size:12px}
+  .sel{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:12px;font:inherit;font-size:15px;background:#fff;margin-top:10px}
+  .modal{position:fixed;inset:0;background:rgba(15,15,20,.55);z-index:25;display:flex;align-items:flex-end;justify-content:center}
+  .modal .sheet{background:#fff;border-radius:22px 22px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom));width:100%;max-width:560px;max-height:90vh;overflow:auto}
+  .pick{display:flex;gap:6px;justify-content:center;margin:10px 0 4px}
+  .pick button{background:none;border:0;font-size:38px;line-height:1;cursor:pointer;color:#e5ded3;padding:2px}
+  .pick button.on{color:#f5a623}
+  .tags{display:flex;flex-wrap:wrap;gap:8px}
+  .tag{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font:inherit;font-size:14px;cursor:pointer;color:var(--ink)}
+  .tag.on{background:var(--brand-soft);border-color:var(--brand);color:#9d174d;font-weight:600}
+  textarea{width:100%;min-height:110px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font:inherit;font-size:15px;resize:vertical}
+  .lbrev{max-width:560px;width:100%;max-height:28vh;overflow:auto;margin-top:8px}
+  .lbrev .rv{margin-top:6px}
+  [hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><span class="logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="โลโก้ร้าน">
+  <circle cx="120" cy="120" r="116" fill="#FFF4E6"/>
+  <circle cx="120" cy="120" r="116" fill="none" stroke="#F7A8C9" stroke-width="6"/>
+  <circle cx="120" cy="120" r="104" fill="none" stroke="#F7A8C9" stroke-width="2" stroke-dasharray="2 9" stroke-linecap="round"/>
+  <path d="M46 70 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4z" fill="#FFD166"/>
+  <path d="M190 58 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z" fill="#9AD8C8"/>
+  <path d="M176 186 C214 178 214 132 190 124" fill="none" stroke="#EE8A3C" stroke-width="16" stroke-linecap="round"/>
+  <path d="M206 150 l-14 4 M208 166 l-14 2" stroke="#C9661F" stroke-width="5" stroke-linecap="round"/>
+  <ellipse cx="120" cy="170" rx="66" ry="48" fill="#F59A45"/>
+  <ellipse cx="120" cy="182" rx="40" ry="30" fill="#FFE2C2"/>
+  <path d="M66 92 L60 40 L104 70 Z" fill="#F59A45" stroke="#F59A45" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M174 92 L180 40 L136 70 Z" fill="#F59A45" stroke="#F59A45" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M72 82 L69 54 L94 71 Z" fill="#FFB7C9"/>
+  <path d="M168 82 L171 54 L146 71 Z" fill="#FFB7C9"/>
+  <ellipse cx="120" cy="108" rx="64" ry="54" fill="#F59A45"/>
+  <path d="M120 56 v16 M106 58 l3 13 M134 58 l-3 13" stroke="#C9661F" stroke-width="6" stroke-linecap="round"/>
+  <path d="M57 104 h12 M58 118 h11 M183 104 h-12 M182 118 h-11" stroke="#C9661F" stroke-width="5" stroke-linecap="round"/>
+  <ellipse cx="120" cy="128" rx="28" ry="20" fill="#FFE2C2"/>
+  <circle cx="96" cy="106" r="17" fill="#ffffff" fill-opacity=".55" stroke="#3B2A20" stroke-width="5"/>
+  <circle cx="144" cy="106" r="17" fill="#ffffff" fill-opacity=".55" stroke="#3B2A20" stroke-width="5"/>
+  <path d="M113 104 q7 -5 14 0" fill="none" stroke="#3B2A20" stroke-width="5" stroke-linecap="round"/>
+  <path d="M88 108 q8 -9 16 0" fill="none" stroke="#3B2A20" stroke-width="5" stroke-linecap="round"/>
+  <path d="M136 108 q8 -9 16 0" fill="none" stroke="#3B2A20" stroke-width="5" stroke-linecap="round"/>
+  <ellipse cx="78" cy="130" rx="9" ry="6" fill="#FF8FB1" opacity=".75"/>
+  <ellipse cx="162" cy="130" rx="9" ry="6" fill="#FF8FB1" opacity=".75"/>
+  <path d="M114 121 h12 l-6 7z" fill="#E85D8A" stroke="#E85D8A" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M120 128 q-4 8 -11 5 M120 128 q4 8 11 5" fill="none" stroke="#3B2A20" stroke-width="3.5" stroke-linecap="round"/>
+  <g transform="rotate(-8 120 178)">
+    <rect x="88" y="150" width="64" height="62" rx="6" fill="#ffffff" stroke="#3B2A20" stroke-width="4"/>
+    <rect x="96" y="160" width="30" height="7" rx="3.5" fill="#F7A8C9"/>
+    <rect x="96" y="173" width="46" height="5" rx="2.5" fill="#9AD8C8"/>
+    <rect x="96" y="183" width="40" height="5" rx="2.5" fill="#FFD166"/>
+    <rect x="96" y="193" width="44" height="5" rx="2.5" fill="#CBD5E1"/>
+    <path d="M134 158 l3 6 6 1 -4 4 1 6 -6 -3 -6 3 1 -6 -4 -4 6 -1z" fill="#FFD166"/>
+  </g>
+  <ellipse cx="88" cy="186" rx="14" ry="11" fill="#F59A45" stroke="#C9661F" stroke-width="2"/>
+  <ellipse cx="152" cy="180" rx="14" ry="11" fill="#F59A45" stroke="#C9661F" stroke-width="2"/>
+  <path d="M84 181 v6 M90 180 v7 M148 175 v6 M154 174 v7" stroke="#C9661F" stroke-width="2.5" stroke-linecap="round"/>
+</svg>
+</span>
+      <div><h1 id="shopName">dek<em>mee</em>sheet</h1><p id="shopDesc"></p></div></div>
+    <button class="link" id="toLookup">ชีทสรุป<br>ของฉัน</button>
+  </header>
+  <div class="steps" id="steps"><span></span><span></span><span></span><span></span></div>
+
+  <!-- 1 เลือกชีท -->
+  <section id="v-shop">
+    <div class="hero">
+      <h2>ชีทสรุปพร้อมสอบ โหลดได้ทันที ✨</h2>
+      <div class="soldTotal" id="soldTotal" hidden></div>
+      <div class="trust">
+        <div><b>⚡</b>ได้ไฟล์ทันที<br>หลังแนบสลิป</div>
+        <div><b>📄</b>ไฟล์ PDF<br>อ่านได้ทุกเครื่อง</div>
+        <div><b>🔒</b>เปิดด้วย<br>อีเมลมหาลัย</div>
+      </div>
+    </div>
+    <details class="howto" id="howto">
+      <summary>วิธีสั่งซื้อ (4 ขั้นตอน)</summary>
+      <ol>
+        <li><span><b>เลือกชีทที่ต้องการ</b>แตะรูปเพื่อดูตัวอย่างก่อนได้ เลือกได้หลายวิชาในออเดอร์เดียว</span></li>
+        <li><span><b>กรอกอีเมลมหาวิทยาลัย</b><span id="howEmail">ใช้อีเมล @nu.ac.th เท่านั้น</span> เพราะระบบจะเปิดสิทธิ์ไฟล์ให้อีเมลนี้</span></li>
+        <li><span><b>โอนเงินและแนบสลิป</b>โอนตามยอดที่แสดง แล้วแนบรูปสลิปในหน้าเดียวกัน</span></li>
+        <li><span><b>กด “เปิดไฟล์” รับชีทได้ทันที</b>ไฟล์เปิดใน Google Drive ล็อกอินด้วยอีเมลมหาลัย แล้วกด ⬇ เพื่อดาวน์โหลด</span></li>
+      </ol>
+      <div class="tip">💡 จดเลขออเดอร์ไว้ ถ้าต้องการเปิดไฟล์อีกครั้ง กด “ชีทสรุปของฉัน” มุมขวาบน แล้วกรอกเลขออเดอร์กับอีเมลที่ใช้สั่ง</div>
+    </details>
+    <div class="sect">เลือกชีทสรุป</div>
+    <input class="search" id="q" type="search" placeholder="ค้นหารหัสวิชา / ชื่อวิชา…" autocomplete="off">
+    <div class="chips" id="chips"></div>
+    <div class="list" id="list"><div class="center"><span class="spin"></span></div></div>
+    <div id="revHome" hidden>
+      <div class="sect" style="margin-top:28px">รีวิวจากลูกค้า</div>
+      <div class="card" style="margin-top:8px">
+        <div class="revsum"><div class="big" id="avgBig"></div><div><div class="stars" id="avgStars" style="font-size:20px"></div><div class="muted" style="font-size:13px" id="avgCount"></div></div></div>
+        <div id="revLatest"></div>
+        <button class="btn ghost block" id="toReviews" style="margin-top:12px;padding:10px">ดูรีวิวทั้งหมด</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 ข้อมูลผู้ซื้อ -->
+  <section id="v-info" hidden>
+    <button class="back" data-go="shop">← กลับไปเลือกชีท</button>
+    <div class="card"><h2>รายการที่เลือก</h2><div id="sum2"></div></div>
+    <form class="card" id="infoForm" novalidate>
+      <h2>อีเมลสำหรับรับไฟล์</h2>
+      <label for="fEmail">อีเมลมหาวิทยาลัย <small id="emailHint">(ระบบจะเปิดสิทธิ์ไฟล์ใน Drive ให้อีเมลนี้)</small></label>
+      <input type="email" id="fEmail" autocomplete="email" inputmode="email" placeholder="example@nu.ac.th">
+      <div class="err" id="err2"></div>
+      <button class="btn block" type="submit">ไปหน้าชำระเงิน</button>
+    </form>
+  </section>
+
+  <!-- 3 ชำระเงิน + แนบสลิป -->
+  <section id="v-pay" hidden>
+    <button class="back" data-go="info">← แก้ไขข้อมูล</button>
+    <div class="card qr" id="qrCard">
+      <div class="hd">สแกนจ่ายด้วย PromptPay · ใส่ยอดให้แล้ว</div>
+      <div id="qr"></div>
+      <div class="amt" id="amt"></div>
+      <div class="to">ชื่อบัญชี <span id="ppName"></span><br>
+        <span style="font-size:12.5px">สแกนได้ทุกแอปธนาคาร</span></div>
+      <div style="padding:0 16px 16px">
+        <a class="btn ghost block" id="saveQR" download="dekmeesheet-qr.png" href="#" style="padding:10px">บันทึกรูป QR</a>
+        <p class="note" style="margin-top:8px">📱 จ่ายจากมือถือเครื่องนี้: กดบันทึกรูป QR (หรือกดค้างที่รูป) แล้วเปิดแอปธนาคาร → สแกน → เลือกรูปจากอัลบั้ม</p>
+      </div>
+    </div>
+    <div class="card" id="bankCard" hidden>
+      <h2 id="bankTitle">หรือโอนเข้าบัญชี</h2>
+      <div class="bank"><div class="ic" id="bankIc">K</div>
+        <div><div class="muted" style="font-size:13px" id="bankLabel"></div><div class="acc" id="bankAcc"></div><div style="font-size:14px" id="bankName"></div></div></div>
+      <button class="btn ghost block" id="copyAcc" style="margin-top:12px;padding:10px">คัดลอกเลขบัญชี</button>
+      <div class="bigamt"><span class="muted" style="font-size:13px">ยอดที่ต้องโอน</span><b id="amt2"></b></div>
+    </div>
+    <div class="card">
+      <h2>แนบสลิปการโอน</h2>
+      <label class="drop" id="drop" for="slip">
+        <span id="dropTxt">แตะเพื่อเลือกรูปสลิป</span>
+        <input type="file" id="slip" accept="image/*,application/pdf" hidden>
+      </label>
+      <div class="err" id="err3"></div>
+      <button class="btn block" id="submitBtn" disabled style="margin-top:6px">ยืนยันและรับไฟล์</button>
+      <p class="note">ร้านตรวจสลิปทุกใบ หากพบสลิปไม่ถูกต้อง ออเดอร์จะถูกยกเลิกและโหลดไฟล์ไม่ได้</p>
+    </div>
+  </section>
+
+  <!-- 4 สถานะออเดอร์ / โหลดไฟล์ -->
+  <section id="v-status" hidden>
+    <div class="card" id="statusCard"><div class="center"><span class="spin"></span></div></div>
+    <button class="btn ghost block" id="newOrder" style="margin-top:12px">เลือกซื้อชีทเพิ่ม</button>
+  </section>
+
+  <!-- รีวิวทั้งหมด -->
+  <section id="v-reviews" hidden>
+    <button class="back" data-go="shop">← กลับหน้าร้าน</button>
+    <div class="card">
+      <h2>รีวิวจากลูกค้า</h2>
+      <div class="revsum"><div class="big" id="avgBig2"></div><div><div class="stars" id="avgStars2" style="font-size:20px"></div><div class="muted" style="font-size:13px" id="avgCount2"></div></div></div>
+      <select class="sel" id="revFilter"></select>
+    </div>
+    <div id="revAll"></div>
+    <div class="card" style="background:var(--brand-soft);border:0;font-size:14px;line-height:1.7">
+      ✍️ <b>อยากเขียนรีวิว?</b> รีวิวได้เฉพาะคนที่ซื้อแล้ว กด “ชีทสรุปของฉัน” → กรอกเลขออเดอร์กับอีเมล → กด “เขียนรีวิว” ข้างชีทที่ซื้อ
+      <button class="btn block" id="goWrite" style="margin-top:10px;padding:11px">ไปที่ชีทสรุปของฉัน</button>
+    </div>
+  </section>
+
+  <!-- ค้นหาออเดอร์ -->
+  <section id="v-lookup" hidden>
+    <button class="back" data-go="shop">← กลับหน้าร้าน</button>
+    <form class="card" id="lookupForm" novalidate>
+      <h2>ชีทสรุปของฉัน</h2>
+      <p class="note" style="margin:-4px 0 4px">กรอกเลขออเดอร์และอีเมลที่ใช้สั่ง เพื่อเปิดไฟล์ชีทที่ซื้อไว้</p>
+      <label for="lId">เลขออเดอร์</label>
+      <input type="text" id="lId" placeholder="เช่น dekmeesheet-01 หรือพิมพ์แค่ 01" autocapitalize="off" autocorrect="off" spellcheck="false">
+      <label for="lEmail">อีเมลที่ใช้สั่ง</label>
+      <input type="email" id="lEmail" inputmode="email">
+      <div class="err" id="errL"></div>
+      <button class="btn block" type="submit">ค้นหา</button>
+    </form>
+  </section>
+  <footer id="foot"></footer>
+</div>
+
+<div class="bar" id="bar">
+  <div class="in">
+    <div class="sum"><span id="cnt">ยังไม่ได้เลือก</span><b id="tot">฿0</b></div>
+    <button class="btn" id="next" disabled>ถัดไป</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+window.SHOP_API = "https://script.google.com/macros/s/AKfycbwz8M1wIJnEc7Vp4WvXwL7eE8EoGx2zpJOszPnMRgFiFxc2lfeONJJowdNPfluE521Zqg/exec";
+const BOOT = (() => { const q = new URLSearchParams(location.search); return { order: q.get("order") || "", token: q.get("t") || "" }; })();
+const $ = id => document.getElementById(id);
+const baht = n => "฿" + Number(n).toLocaleString("th-TH");
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let STORE = {shop:{}, products:[]}, cart = new Set(), cat = "ทั้งหมด", slipData = null;
+let current = null; // {orderId, cred}
+
+const API_URL = (typeof window.SHOP_API === "string") ? window.SHOP_API : "";
+function call(fn, ...args){
+  if (!API_URL && window.google && google.script && google.script.run)
+    return new Promise((res, rej) => google.script.run.withSuccessHandler(res).withFailureHandler(e => rej(e)) [fn](...args));
+  // โหมดเว็บภายนอก: เรียก Apps Script แบบไม่แนบคุกกี้ (credentials: "omit")
+  return fetch(API_URL, { method: "POST", credentials: "omit", redirect: "follow",
+      headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ fn, args }) })
+    .then(r => { if (!r.ok) throw new Error("เชื่อมต่อร้านไม่สำเร็จ (" + r.status + ")"); return r.json(); })
+    .then(j => { if (!j.ok) throw new Error(j.error || "เกิดข้อผิดพลาด"); return j.data; });
+}
+function errMsg(e){ return (e && e.message ? e.message : String(e)).replace(/^Exception:\s*/, "").replace(/^Error:\s*/, ""); }
+function toast(t){ const e=$("toast"); e.textContent=t; e.classList.add("on"); clearTimeout(e._t); e._t=setTimeout(()=>e.classList.remove("on"),1800); }
+async function copy(t){ try{ await navigator.clipboard.writeText(t); toast("คัดลอกแล้ว"); }catch(e){ toast("คัดลอกไม่ได้ กดค้างเพื่อคัดลอก"); } }
+
+/* ---------- views ---------- */
+const VIEWS = ["shop","info","pay","status","lookup","reviews"];
+function go(v){
+  VIEWS.forEach(x => $("v-"+x).hidden = x !== v);
+  const idx = {shop:1, info:2, pay:3, status:4}[v] || 0;
+  $("steps").hidden = !idx;
+  [...$("steps").children].forEach((s,i) => s.classList.toggle("on", i < idx));
+  $("bar").hidden = v !== "shop";
+  if (v === "info") $("sum2").innerHTML = summaryHTML();
+  if (v === "pay") buildQR();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+document.querySelectorAll("[data-go]").forEach(b => b.onclick = () => go(b.dataset.go));
+$("toLookup").onclick = () => go("lookup");
+$("next").onclick = () => go("info");
+$("newOrder").onclick = () => { cart.clear(); slipData = null; resetSlip(); renderList(); renderBar(); go("shop"); };
+
+/* ---------- 1 shop ---------- */
+function cats(){ return [...new Set(STORE.products.map(p => p.cat).filter(Boolean))]; }
+function renderChips(){
+  const cs = cats();
+  $("chips").hidden = cs.length < 2;
+  $("chips").innerHTML = "";
+  [...cs, "ทั้งหมด"].forEach(c => {
+    const b = document.createElement("button"); b.className = "chip" + (c === cat ? " on" : ""); b.textContent = c;
+    b.onclick = () => { cat = c; renderChips(); renderList(); }; $("chips").appendChild(b);
+  });
+}
+function renderList(){
+  const q = $("q").value.trim().toLowerCase();
+  const items = STORE.products.filter(p => (cat === "ทั้งหมด" || p.cat === cat) && (!q || (p.title + " " + p.code + " " + p.cat).toLowerCase().includes(q)));
+  const L = $("list"); L.innerHTML = "";
+  if (!items.length){ L.innerHTML = '<div class="center muted" style="grid-column:1/-1">' + (STORE.products.length ? "ไม่พบชีทที่ค้นหา" : "ยังไม่มีชีทวางขาย") + '</div>'; return; }
+  items.forEach(p => {
+    const inC = cart.has(p.code), el = document.createElement("div"); el.className = "item" + (inC ? " in" : "");
+    const src = imgSrc(p, "card");
+    el.innerHTML = ((p.image || p.hasImage)
+        ? `<button class="thumb" aria-label="ดูรูปตัวอย่าง">${src ? `<img alt="" src="${esc(src)}">` : `<span class="spin"></span>`}<span class="zoom">🔍 ดูตัวอย่าง</span></button>`
+        : `<div class="thumb noimg">ยังไม่มีรูปตัวอย่าง</div>`)
+      + `<div class="info"><h3>${esc(p.title)}</h3><div class="meta">${esc(p.cat || "")}${p.pages ? " · " + p.pages + " หน้า" : ""}</div>
+         ${p.sold ? `<div class="sold">🔥 ขายแล้ว ${Number(p.sold).toLocaleString("th-TH")} ครั้ง</div>` : ""}
+         ${rateLine(p.code)}
+         <div class="foot"><span class="price">${baht(p.price)}</span><button class="add${inC?" in":""}">${inC?"✓ เลือกแล้ว":"+ เลือก"}</button></div></div>`;
+    if (!src && p.hasImage) loadImg(p, "card").then(u => { const t = el.querySelector(".thumb"); if (t && u) { t.querySelector(".spin")?.remove(); t.insertAdjacentHTML("afterbegin", `<img alt="" src="${u}">`); } }).catch(() => { const t = el.querySelector(".thumb"); if (t){ t.className = "thumb noimg"; t.innerHTML = "โหลดรูปไม่ได้"; t.onclick = null; } });
+    const img = el.querySelector(".thumb img");
+    if (img) img.onerror = () => {
+      const t = el.querySelector(".thumb");
+      if (p.img && !BADIMG[p.code] && !IMG[p.code + "card"]){   // ลิงก์ตรงไม่ได้ → โหลดผ่านเซิร์ฟเวอร์แทน
+        BADIMG[p.code] = 1; img.remove(); t.insertAdjacentHTML("afterbegin", '<span class="spin"></span>');
+        loadImg(p, "card").then(u => { t.querySelector(".spin")?.remove(); t.insertAdjacentHTML("afterbegin", `<img alt="" src="${u}">`); })
+          .catch(() => { t.className = "thumb noimg"; t.innerHTML = "โหลดรูปไม่ได้"; t.onclick = null; });
+        return;
+      }
+      t.className = "thumb noimg"; t.innerHTML = "โหลดรูปไม่ได้"; t.onclick = null;
+    };
+    const th = el.querySelector("button.thumb"); if (th) th.onclick = () => openLB(p);
+    el.querySelector(".add").onclick = () => { inC ? cart.delete(p.code) : cart.add(p.code); renderList(); renderBar(); };
+    L.appendChild(el);
+  });
+}
+/* ---------- reviews ---------- */
+function starsHTML(n){ const f = Math.floor(n + 0.3); let h=""; for(let i=1;i<=5;i++) h += i <= f ? "★" : `<span class="off">★</span>`; return `<span class="stars">${h}</span>`; }
+function statsFor(code){ const rs=(STORE.reviews||[]).filter(r=>!code||r.code===code); const n=rs.length; return {n, avg: n ? rs.reduce((s,r)=>s+r.stars,0)/n : 0}; }
+function rateLine(code){ const st=statsFor(code); return st.n ? `<div class="rate">${starsHTML(st.avg)} ${st.avg.toFixed(1)} (${st.n})</div>` : ""; }
+function revCard(r){
+  return `<div class="rv"><div class="top"><span><span class="badge" style="margin-left:0">✓ ผู้ซื้อจริง</span></span><span class="d">${esc(r.date)}</span></div>
+    <div>${starsHTML(r.stars)}</div><div class="prod">${esc(r.product)}</div>${(() => { const sp = splitTags(r.text);
+      return (sp.tags.length ? `<div class="tags" style="margin-top:8px;gap:6px">${sp.tags.map(t => `<span class="tag on" style="padding:3px 10px;font-size:12.5px;cursor:default">${esc(t)}</span>`).join("")}</div>` : "")
+        + (sp.rest ? `<p>${esc(sp.rest)}</p>` : ""); })()}</div>`;
+}
+function renderReviews(){
+  const st = statsFor(), rs = STORE.reviews || [];
+  $("revHome").hidden = !st.n;
+  if (st.n){
+    $("avgBig").textContent = $("avgBig2").textContent = st.avg.toFixed(1);
+    $("avgStars").innerHTML = $("avgStars2").innerHTML = starsHTML(st.avg);
+    $("avgCount").textContent = $("avgCount2").textContent = `จาก ${st.n} รีวิว`;
+    $("revLatest").innerHTML = rs.slice(0,3).map(revCard).join("");
+  }
+  const sel = $("revFilter"), cur = sel.value;
+  const codes = [...new Set(rs.map(r=>r.code))];
+  sel.innerHTML = `<option value="">ทุกชีท (${rs.length})</option>` + codes.map(c => { const r = rs.find(x=>x.code===c); return `<option value="${esc(c)}">${esc(r.product)} (${statsFor(c).n})</option>`; }).join("");
+  sel.value = codes.includes(cur) ? cur : "";
+  const list = rs.filter(r => !sel.value || r.code === sel.value);
+  $("revAll").innerHTML = list.length ? list.map(revCard).join("") : `<div class="center muted">ยังไม่มีรีวิว</div>`;
+}
+$("toReviews").onclick = () => { renderReviews(); go("reviews"); };
+$("revFilter").onchange = renderReviews;
+$("goWrite").onclick = () => go("lookup");
+
+const QUICK_TAGS = ["สรุปครบ","อ่านง่าย","ตรงแนวข้อสอบ","มีแนวข้อสอบ","ลายมืออ่านง่าย","คุ้มราคา","ประหยัดเวลาอ่าน","สวยน่าอ่าน"];
+function splitTags(text){
+  const lines = String(text || "").split("\n");
+  const first = lines[0].split(" · ").map(x => x.trim()).filter(Boolean);
+  if (first.length && first.every(t => QUICK_TAGS.includes(t))) return { tags: first, rest: lines.slice(1).join("\n") };
+  return { tags: [], rest: String(text || "") };
+}
+function openReviewForm(item, defaultName, initStars){
+  const ex = item.review || {}; let stars = initStars || ex.stars || 0;
+  const pre = splitTags(ex.text); const tags = new Set(pre.tags);
+  const m = document.createElement("div"); m.className = "modal";
+  m.innerHTML = `<div class="sheet"><h2 style="margin:0 0 4px">รีวิวชีท</h2><div class="muted" style="font-size:14px">${esc(item.title)}</div>
+    <div class="pick">${[1,2,3,4,5].map(i=>`<button data-s="${i}" aria-label="${i} ดาว">★</button>`).join("")}</div>
+    <div class="center muted" style="padding:0 0 6px;font-size:13px" id="pickTxt">แตะดาวเพื่อให้คะแนน</div>
+    <div style="font-size:14px;font-weight:500;margin:8px 0 6px">ชอบอะไรบ้าง <small class="muted">(แตะเลือกได้หลายอัน)</small></div>
+    <div class="tags">${QUICK_TAGS.map(t=>`<button type="button" class="tag" data-t="${esc(t)}">${esc(t)}</button>`).join("")}</div>
+    <label for="rvText">เขียนเพิ่ม <small>(ไม่บังคับ)</small></label><textarea id="rvText" maxlength="400" placeholder="เช่น อ่านคืนเดียวก่อนสอบก็เข้าใจ">${esc(pre.rest)}</textarea>
+    <p class="note" style="margin:6px 0 0">🔒 รีวิวจะแสดงแบบไม่ระบุชื่อ</p>
+    <div class="err" id="rvErr"></div>
+    <button class="btn block" id="rvSend">ส่งรีวิว</button><button class="btn ghost block" id="rvCancel" style="margin-top:8px">ไว้ทีหลัง</button></div>`;
+  const words = ["","ควรปรับปรุง","พอใช้","ดี","ดีมาก","ดีที่สุด!"];
+  const paint = () => {
+    m.querySelectorAll(".pick button").forEach(b => b.classList.toggle("on", +b.dataset.s <= stars));
+    m.querySelector("#pickTxt").textContent = stars ? words[stars] : "แตะดาวเพื่อให้คะแนน";
+    m.querySelectorAll(".tag").forEach(b => b.classList.toggle("on", tags.has(b.dataset.t)));
+  };
+  m.querySelectorAll(".pick button").forEach(b => b.onclick = () => { stars = +b.dataset.s; paint(); });
+  m.querySelectorAll(".tag").forEach(b => b.onclick = () => { tags.has(b.dataset.t) ? tags.delete(b.dataset.t) : tags.add(b.dataset.t); paint(); });
+  paint();
+  const close = () => m.remove();
+  m.querySelector("#rvCancel").onclick = close;
+  m.onclick = e => { if (e.target === m) close(); };
+  m.querySelector("#rvSend").onclick = async () => {
+    if (!stars){ m.querySelector("#rvErr").textContent = "กรุณาให้ดาวก่อน"; return; }
+    const tagLine = QUICK_TAGS.filter(t => tags.has(t)).join(" · ");
+    const extra = m.querySelector("#rvText").value.trim();
+    const text = [tagLine, extra].filter(Boolean).join("\n");
+    const b = m.querySelector("#rvSend"); b.disabled = true; b.innerHTML = '<span class="spin"></span> กำลังส่ง…';
+    try{
+      await call("submitReview", current.orderId, current.cred, item.code, stars, "", text);
+      try{ localStorage.setItem("asked_" + current.orderId + "_" + item.code, "1"); }catch(e){}
+      close(); toast("ขอบคุณสำหรับรีวิว 💖"); loadStatus(false); refreshStore();
+    }catch(e){ m.querySelector("#rvErr").textContent = errMsg(e); b.disabled = false; b.textContent = "ส่งรีวิว"; }
+  };
+  document.body.appendChild(m);
+}
+
+/* ---------- ถามรีวิวหลังลูกค้าเปิดไฟล์ ---------- */
+let pendingAsk = null, lastOrder = null;
+function wasAsked(code){ try{ return !!localStorage.getItem("asked_" + current.orderId + "_" + code); }catch(e){ return false; } }
+function markAsked(code){ try{ localStorage.setItem("asked_" + current.orderId + "_" + code, "1"); }catch(e){} }
+function askReview(item){
+  if (!item || item.review || wasAsked(item.code) || document.querySelector(".modal")) return;
+  markAsked(item.code);
+  const m = document.createElement("div"); m.className = "modal";
+  m.innerHTML = `<div class="sheet" style="text-align:center"><div style="font-size:40px">🐱📄</div>
+    <h2 style="margin:6px 0 2px">ชีทเป็นยังไงบ้าง?</h2><div class="muted" style="font-size:14px">${esc(item.title)}</div>
+    <div class="pick">${[1,2,3,4,5].map(i=>`<button data-s="${i}" aria-label="${i} ดาว">★</button>`).join("")}</div>
+    <div class="muted" style="font-size:13px;margin-bottom:12px">แตะดาวเพื่อรีวิว ใช้เวลาไม่ถึง 10 วินาที</div>
+    <button class="btn ghost block" id="askLater">ไว้ทีหลัง</button></div>`;
+  const close = () => m.remove();
+  m.querySelector("#askLater").onclick = close;
+  m.onclick = e => { if (e.target === m) close(); };
+  m.querySelectorAll(".pick button").forEach(b => {
+    b.onmouseenter = () => m.querySelectorAll(".pick button").forEach(x => x.classList.toggle("on", +x.dataset.s <= +b.dataset.s));
+    b.onclick = () => { close(); openReviewForm(item, "", +b.dataset.s); };
+  });
+  document.body.appendChild(m);
+}
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible" && pendingAsk){ const it = pendingAsk; pendingAsk = null; setTimeout(() => askReview(it), 600); }
+});
+
+async function refreshStore(){ try{ STORE = await call("getStore"); renderReviews(); renderList(); }catch(e){} }
+
+/* ---------- images (ดึงผ่านระบบหลังบ้าน) ---------- */
+const IMG = {}, IMGP = {};
+const BADIMG = {};
+function directUrl(p, size){ return p.img && !BADIMG[p.code] ? `https://lh3.googleusercontent.com/d/${encodeURIComponent(p.img)}=w${size === "full" ? 1400 : 700}` : ""; }
+function imgSrc(p, size){ if (p.image) return size === "full" ? (p.imageFull || p.image) : p.image; return IMG[p.code + size] || directUrl(p, size); }
+function loadImg(p, size){
+  const k = p.code + size;
+  if (IMG[k]) return Promise.resolve(IMG[k]);
+  const lk = "img2_" + k;
+  if (size === "card"){ try{ const s = JSON.parse(localStorage.getItem(lk) || "null"); if (s && Date.now() - s.t < 3*864e5) return Promise.resolve(IMG[k] = s.u); }catch(e){} }
+  if (!IMGP[k]) IMGP[k] = call("getImage", p.code, size).then(u => {
+    IMG[k] = u;
+    if (size === "card"){ try{ localStorage.setItem(lk, JSON.stringify({t: Date.now(), u})); }catch(e){ try{ Object.keys(localStorage).filter(x => x.startsWith("img2_")).forEach(x => localStorage.removeItem(x)); }catch(_){} } }
+    return u;
+  }).catch(e => { delete IMGP[k]; throw e; });
+  return IMGP[k];
+}
+
+function openLB(p){
+  const lb = document.createElement("div"); lb.className = "lb";
+  const inC = () => cart.has(p.code);
+  lb.innerHTML = `<button class="x" aria-label="ปิด">×</button><img alt="" id="lbImg" src="${esc(imgSrc(p,"full") || imgSrc(p,"card"))}">
+    <div class="cap"><b>${esc(p.title)}</b> · ${esc(p.cat||"")}${p.pages ? " · " + p.pages + " หน้า" : ""} · ${baht(p.price)}</div>
+    <div class="row2"><button class="btn" id="lbAdd"></button></div>
+    <div class="lbrev">${(() => { const rs = (STORE.reviews||[]).filter(r => r.code === p.code).slice(0,5); return rs.length ? rs.map(revCard).join("") : ""; })()}</div>`;
+  const setBtn = () => lb.querySelector("#lbAdd").textContent = inC() ? "✓ อยู่ในตะกร้าแล้ว (แตะเพื่อเอาออก)" : "+ เลือกชีทนี้";
+  setBtn();
+  lb.querySelector("#lbAdd").onclick = () => { inC() ? cart.delete(p.code) : cart.add(p.code); setBtn(); renderList(); renderBar(); };
+  const close = () => lb.remove();
+  lb.querySelector(".x").onclick = close;
+  lb.onclick = e => { if (e.target === lb) close(); };
+  document.body.appendChild(lb);
+  const li = lb.querySelector("#lbImg");
+  li.onerror = () => { if (p.hasImage && !li.dataset.fb){ li.dataset.fb = 1; BADIMG[p.code] = 1; loadImg(p, "full").then(u => { li.src = u; }).catch(() => {}); } };
+  if (!imgSrc(p, "full") && p.hasImage) loadImg(p, "full").then(u => { if (li) li.src = u; }).catch(() => {});
+}
+const chosen = () => STORE.products.filter(p => cart.has(p.code));
+const total = () => chosen().reduce((s,p) => s + p.price, 0);
+function renderBar(){
+  $("cnt").textContent = cart.size ? `เลือกแล้ว ${cart.size} รายการ` : "ยังไม่ได้เลือก";
+  $("tot").textContent = baht(total());
+  $("next").disabled = !cart.size;
+}
+function summaryHTML(){
+  return chosen().map(p => `<div class="row"><span>${esc(p.title)}</span><span>${baht(p.price)}</span></div>`).join("")
+    + `<div class="row total"><span>รวม</span><span>${baht(total())}</span></div>`;
+}
+$("q").addEventListener("input", renderList);
+
+/* ---------- 2 info ---------- */
+$("infoForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const m = $("fEmail").value.trim();
+  if (!m){ $("err2").textContent = "กรุณากรอกอีเมล"; return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m)){ $("err2").textContent = "รูปแบบอีเมลไม่ถูกต้อง"; return; }
+  const dom = STORE.shop.emailDomain;
+  if (dom && !m.toLowerCase().endsWith("@" + dom)){ $("err2").textContent = "กรุณาใช้อีเมล @" + dom + " เท่านั้น"; return; }
+  $("err2").textContent = ""; go("pay");
+});
+
+/* ---------- 3 pay: PromptPay QR ---------- */
+function crc16(s){let c=0xFFFF;for(let i=0;i<s.length;i++){c^=s.charCodeAt(i)<<8;for(let j=0;j<8;j++)c=(c&0x8000)?((c<<1)^0x1021)&0xFFFF:(c<<1)&0xFFFF}return c.toString(16).toUpperCase().padStart(4,"0")}
+const tlv = (id,v) => id + String(v.length).padStart(2,"0") + v;
+function ppPayload(target, amount){
+  const t = String(target).replace(/\D/g,"");
+  const acc = t.length >= 15 ? tlv("03", t) : t.length >= 13 ? tlv("02", t) : tlv("01", ("0000000000000" + t.replace(/^0/,"66")).slice(-13));
+  const p = tlv("00","01") + tlv("01","12") + tlv("29", tlv("00","A000000677010111") + acc) + tlv("53","764") + tlv("54", amount.toFixed(2)) + tlv("58","TH") + "6304";
+  return p + crc16(p);
+}
+function buildQR(){
+  const s = STORE.shop, amt = total();
+  $("bankCard").hidden = !s.bankAcc;
+  if (s.bankAcc){
+    $("bankLabel").textContent = "ธนาคาร" + (s.bank || "");
+    $("bankIc").textContent = /กสิกร/.test(s.bank||"") ? "K+" : (s.bank||"฿").slice(0,2);
+    $("bankAcc").textContent = s.bankAcc; $("bankName").textContent = s.bankName || "";
+    $("amt2").textContent = baht(amt) + ".00";
+  }
+  $("qrCard").hidden = !s.promptpay;
+  $("amt").textContent = baht(amt) + ".00";
+  $("ppName").textContent = s.promptpayName || "-";
+  $("bankTitle").textContent = s.promptpay ? "หรือโอนเข้าบัญชี" : "โอนเงินเข้าบัญชี";
+  try{
+    if (!s.promptpay) throw 0;
+    const qr = qrcode(0, "M"); qr.addData(ppPayload(s.promptpay, amt)); qr.make();
+    const url = qr.createDataURL(8, 4);
+    $("qr").innerHTML = `<img src="${url}" alt="QR พร้อมเพย์ ยอด ${baht(amt)}" style="width:230px;height:230px;display:block;margin:14px auto 6px;image-rendering:pixelated">`;
+    $("saveQR").href = url; $("saveQR").download = "dekmeesheet-qr-" + amt + "baht.gif";
+  }catch(e){ $("qr").innerHTML = '<p class="note" style="padding:20px">ร้านยังไม่ได้ตั้งค่าพร้อมเพย์</p>'; }
+}
+$("copyAcc").onclick = () => copy((STORE.shop.bankAcc || "").replace(/\D/g, ""));
+
+/* ---------- slip upload (ย่อรูปก่อนส่ง) ---------- */
+function resetSlip(){ $("drop").classList.remove("has"); $("dropTxt").innerHTML = "แตะเพื่อเลือกรูปสลิป"; $("slip").value = ""; $("submitBtn").disabled = true; }
+$("slip").addEventListener("change", async () => {
+  const f = $("slip").files[0]; $("err3").textContent = "";
+  if (!f) return;
+  try{
+    slipData = f.type === "application/pdf" ? await readPdf(f) : await shrinkImage(f);
+    $("drop").classList.add("has");
+    $("dropTxt").innerHTML = (slipData.preview ? `<img src="${slipData.preview}" alt="">` : "") + "✓ " + esc(f.name) + "<br><small class='muted'>แตะเพื่อเปลี่ยนไฟล์</small>";
+    $("submitBtn").disabled = false;
+  }catch(e){ slipData = null; resetSlip(); $("err3").textContent = "อ่านไฟล์ไม่ได้ ลองใช้ภาพหน้าจอสลิปแทน"; }
+});
+function readPdf(f){
+  return new Promise((res, rej) => {
+    if (f.size > 5e6) return rej(new Error("big"));
+    const r = new FileReader(); r.onload = () => res({mime:"application/pdf", data:String(r.result).split(",")[1], name:f.name}); r.onerror = rej; r.readAsDataURL(f);
+  });
+}
+function shrinkImage(f){
+  return new Promise((res, rej) => {
+    const url = URL.createObjectURL(f), img = new Image();
+    img.onload = () => {
+      const max = 1600, k = Math.min(1, max / Math.max(img.width, img.height));
+      const c = document.createElement("canvas"); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      const d = c.toDataURL("image/jpeg", 0.85); URL.revokeObjectURL(url);
+      res({mime:"image/jpeg", data:d.split(",")[1], name:f.name, preview:d});
+    };
+    img.onerror = rej; img.src = url;
+  });
+}
+
+$("submitBtn").onclick = async () => {
+  if (!slipData) return;
+  const b = $("submitBtn"); b.disabled = true; b.innerHTML = '<span class="spin"></span> กำลังส่งและเปิดสิทธิ์ไฟล์…'; $("err3").textContent = "";
+  try{
+    const r = await call("submitOrder", { email:$("fEmail").value.trim(), items:[...cart], slip:{mime:slipData.mime, data:slipData.data, name:slipData.name} });
+    current = { orderId:r.orderId, cred:r.token, url:r.statusUrl };
+    try{ localStorage.setItem("lastOrder", JSON.stringify(current)); }catch(e){}
+    go("status"); loadStatus(true);
+  }catch(e){
+    $("err3").textContent = errMsg(e);
+  }finally{ b.disabled = false; b.textContent = "ยืนยันและรับไฟล์"; }
+};
+
+/* ---------- 4 status & download ---------- */
+async function loadStatus(justOrdered, tries){
+  tries = tries || 0;
+  const card = $("statusCard"); card.innerHTML = '<div class="center"><span class="spin"></span></div>';
+  try{
+    const o = await call("getOrder", current.orderId, current.cred);
+    current.cred = o.token || current.cred;
+    let html = `${justOrdered ? '<h2>สั่งซื้อเรียบร้อย เปิดไฟล์ได้เลย 🎉</h2>' : '<h2>ออเดอร์ของคุณ</h2>'}
+      <div class="row"><span class="muted">เลขออเดอร์</span><span class="oid">${esc(o.orderId)}</span></div>
+      <div class="row"><span class="muted">วันที่</span><span>${esc(o.date)}</span></div>
+      <div class="row"><span class="muted">ยอด</span><span>${baht(o.total)}</span></div>`;
+    if (o.cancelled){
+      html += `<div class="row"><span class="muted">สถานะ</span><span class="pill cancel">ยกเลิก</span></div>
+        <p class="note">ออเดอร์นี้ถูกยกเลิก เนื่องจากสลิปไม่ถูกต้อง หากเข้าใจผิดกรุณาติดต่อร้าน</p>`;
+    } else {
+      html += `<h2 style="margin-top:16px">ไฟล์ของคุณ</h2>` + o.items.map(i =>
+        `<div class="dl" style="flex-wrap:wrap"><span style="flex:1;min-width:140px">${esc(i.title)}${i.review ? `<br>${starsHTML(i.review.stars)} <small class="muted">รีวิวแล้ว</small>` : ""}</span>
+          <span style="display:flex;gap:6px;align-items:center">${i.url
+          ? `<a class="btn" href="${esc(i.url)}" target="_blank" rel="noopener">เปิดไฟล์</a>`
+          : `<span class="err" style="margin:0;font-size:13px;text-align:right">${esc(i.error)}</span>`}
+          <button class="btn ghost" data-rv="${esc(i.code)}" style="padding:9px 12px;font-size:14px">${i.review ? "แก้รีวิว" : "★ รีวิว"}</button></span></div>`).join("")
+        + (o.items.some(i => i.retry) ? `<button class="btn block" id="retryShare" style="margin-top:12px">↻ ลองอีกครั้ง</button>` : "")
+        + `<div class="card" style="background:var(--brand-soft);border:0;margin-top:14px;font-size:14px;line-height:1.7">
+          ไฟล์จะเปิดใน Google Drive ต้องล็อกอินด้วยอีเมล <b>${esc(o.email)}</b> จากนั้นกดปุ่มดาวน์โหลด ⬇ มุมขวาบนเพื่อเก็บไฟล์ไว้ในเครื่อง<br>
+          <b>จดเลขออเดอร์ไว้</b> กลับมาเปิดใหม่ได้ที่เมนู “ชีทสรุปของฉัน”
+          ${current.url ? `<br><button class="copy" id="copyLink" style="margin:8px 0 0">คัดลอกลิงก์หน้านี้</button>` : ""}
+        </div>
+        <p class="note">ไฟล์สำหรับใช้ส่วนตัว กรุณาไม่แจกต่อนะคะ 🙏</p>`;
+    }
+    card.innerHTML = html;
+    if ($("copyLink")) $("copyLink").onclick = () => copy(current.url);
+    if ($("retryShare")) $("retryShare").onclick = () => loadStatus(justOrdered);
+    card.querySelectorAll("[data-rv]").forEach(b => b.onclick = () => openReviewForm(o.items.find(i => i.code === b.dataset.rv), o.defaultName || ""));
+    card.querySelectorAll("a.btn[href]").forEach((a, idx) => a.addEventListener("click", () => {
+      const it = o.items.filter(i => i.url)[idx];
+      if (it && !it.review && !wasAsked(it.code)){ pendingAsk = it; setTimeout(() => { if (pendingAsk === it && document.visibilityState === "visible"){ pendingAsk = null; askReview(it); } }, 8000); }
+    }));
+  }catch(e){
+    const net = /NetworkError|HTTP 0|network/i.test(errMsg(e));
+    if (net && tries < 2){ setTimeout(() => loadStatus(justOrdered, tries + 1), 1500); return; }
+    card.innerHTML = `<p class="err">${net ? "เชื่อมต่อไม่สำเร็จ ลองกด “ลองอีกครั้ง” ถ้ายังไม่ได้ ให้เปิดเว็บในแท็บส่วนตัว (Private) หรือล็อกอิน Google ไว้บัญชีเดียว" : esc(errMsg(e))}</p>
+      <button class="btn block" id="retryLoad">↻ ลองอีกครั้ง</button>
+      <button class="btn ghost block" style="margin-top:8px" onclick="go('lookup')">ค้นหาออเดอร์</button>`;
+    $("retryLoad").onclick = () => loadStatus(justOrdered);
+  }
+}
+/* ---------- lookup ---------- */
+$("lookupForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const id = $("lId").value.trim(), m = $("lEmail").value.trim();
+  if (!id || !m){ $("errL").textContent = "กรุณากรอกเลขออเดอร์และอีเมล"; return; }
+  $("errL").textContent = ""; current = {orderId:id, cred:m}; go("status"); loadStatus(false);
+});
+
+/* ---------- start ---------- */
+(async function init(){
+  let shown = false;
+  const show = s => {
+    STORE = s;
+    const nm = STORE.shop.name || "ร้านชีทสรุป";
+    $("shopName").innerHTML = esc(nm).replace("mee", "<em>mee</em>");
+    $("shopDesc").textContent = STORE.shop.desc || "";
+    const ts = Number(STORE.shop.totalSold) || 0;
+    if (ts > 0){ $("soldTotal").hidden = false; $("soldTotal").textContent = `🔥 ขายไปแล้ว ${ts.toLocaleString("th-TH")} ชุด`; }
+    const dom = STORE.shop.emailDomain;
+    $("howEmail").textContent = dom ? "ใช้อีเมล @" + dom + " เท่านั้น" : "ใช้อีเมลบัญชี Google";
+    $("fEmail").placeholder = dom ? "example@" + dom : "you@gmail.com";
+    const line = STORE.shop.line;
+    $("foot").innerHTML = `© ${new Date().getFullYear()} ${esc(nm)} · ไฟล์สำหรับใช้ส่วนตัวเท่านั้น`
+      + (line ? `<br>มีปัญหาหรือสอบถาม ทักแชท LINE <a href="https://line.me/R/ti/p/${encodeURIComponent(line)}" target="_blank" rel="noopener">${esc(line)}</a>` : "");
+    try{ if (!localStorage.getItem("seenHowto")){ $("howto").open = true; localStorage.setItem("seenHowto","1"); } }catch(e){ $("howto").open = true; }
+    cat = cats()[0] || "ทั้งหมด";
+    renderChips(); renderList(); renderBar(); renderReviews();
+  };
+  if (BOOT.store && BOOT.store.products){
+    show(BOOT.store); shown = true;
+    try{ localStorage.setItem("store2", JSON.stringify({t: Date.now(), s: BOOT.store, products: 1})); }catch(e){}
+  } else {
+    try{ const c = JSON.parse(localStorage.getItem("store2") || "null"); if (c && c.products && Date.now() - c.t < 7*864e5){ show(c.s); shown = true; } }catch(e){}
+  }
+  if (BOOT.order && BOOT.token){ current = {orderId:BOOT.order, cred:BOOT.token}; go("status"); loadStatus(false); }
+  else {
+    try{ const last = JSON.parse(localStorage.getItem("lastOrder") || "null"); if (last){ $("lId").value = last.orderId; } }catch(e){}
+    go("shop");
+  }
+  if (BOOT.store && BOOT.store.products) return;   // ได้ข้อมูลล่าสุดมากับหน้าเว็บแล้ว
+  try{
+    const fresh = await call("getStore");
+    try{ localStorage.setItem("store2", JSON.stringify({t: Date.now(), s: fresh, products: 1})); }catch(e){}
+    const keepCat = cat;
+    show(fresh); if (shown && keepCat) { cat = keepCat; renderChips(); renderList(); }
+    shown = true;
+  }catch(e){ if (!shown) $("list").innerHTML = `<p class="err">โหลดร้านไม่สำเร็จ: ${esc(errMsg(e))}</p>`; }
+})();
+</script>
+</body>
+</html>
